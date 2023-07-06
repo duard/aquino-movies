@@ -1,6 +1,6 @@
 # AquinoMovies
 
-Pequeno front-end para listagens de filmes da api [OMDB]https://www.omdbapi.com. Utilizando bootstrap e NgRx.
+Pequeno front-end para listagens de filmes da api [OMDB](https://www.omdbapi.com). Utilizando bootstrap e NgRx.
 
 ### O que está feito
 
