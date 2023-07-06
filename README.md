@@ -2,6 +2,13 @@
 
 Pequeno front-end para listagens de filmes da api [OMDB](https://www.omdbapi.com). Utilizando bootstrap e NgRx.
 
+### Funcionamento geral
+
+- O usuário abre a página e cai no campo de pesquisa
+- O usuário digita o nome ou parte do nome de algum filme ou seriado
+- Caso sejam encontrados, os títulos serão exibidos, com paginação
+- Ao clicar em algum título, o usuário é levado para outra página com mais detalhes do item selecionado
+
 ### O que está feito
 
 - [x] Componentização
