@@ -2,17 +2,13 @@
 
 Pequeno front-end para listagens de filmes da api [OMDB]https://www.omdbapi.com. Utilizando bootstrap e NgRx.
 
-### Solar System Exploration, 1950s – 1960s
+### O que está feito
 
-- [ ] Mercury
-- [x] Venus
-- [x] Earth (Orbit/Moon)
-- [x] Mars
-- [ ] Jupiter
-- [ ] Saturn
-- [ ] Uranus
-- [ ] Neptune
-- [ ] Comet Haley
+- [x] Componentização
+- [x] NgrX
+- [x] Bootstrap
+- [x] Responsividade
+- [x] Usabilidade via mouse / teclado
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.1.3.
 
