@@ -1,21 +1,23 @@
-import { Component } from '@angular/core';
+import { Component, ViewEncapsulation } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
 import { FooterComponent } from '../components/footer/footer.component';
-import { LogoComponent } from '../components/logo/logo.component';
 import { NavbarComponent } from '../components/navbar/navbar/navbar.component';
+import { HeaderComponent } from '../components/header/header.component';
 
 @Component({
   selector: 'app-layout-one',
   standalone: true,
+  templateUrl: './layout-one.component.html',
+  styleUrls: ['./layout-one.component.scss'],
+  encapsulation: ViewEncapsulation.Emulated,
+
   imports: [
     CommonModule,
     RouterOutlet,
-    LogoComponent,
     NavbarComponent,
     FooterComponent,
+    HeaderComponent,
   ],
-  templateUrl: './layout-one.component.html',
-  styleUrls: ['./layout-one.component.scss'],
 })
 export class LayoutOneComponent {}

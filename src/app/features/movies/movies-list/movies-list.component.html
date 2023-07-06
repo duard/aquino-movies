@@ -1,1 +1,37 @@
-<p>movies-list works!</p>
+  <div class="container">
+
+
+    <div class="col-12 justify-content-center">
+      <ngb-pagination [collectionSize]="120" [(page)]="currentPage" [maxSize]="5" [rotate]="true" [boundaryLinks]="true"
+        size="sm">
+      </ngb-pagination>
+    </div>
+    <pre>Current page: {{ currentPage }}</pre>
+
+
+    <div *ngFor="let movie of searchedMovies$ | async">
+      <div class="row m-2">
+
+
+        <div class="col-4 col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
+          <img src="{{ movie['Poster'] }}" class="img-fluid" alt="{{ movie['Title'] }}">
+        </div>
+
+
+        <div class="col-8 col-xs-8 col-sm-8 col-md-8 col-lg-8 col-xl-8 col-xxl-8">
+          <a role="button" tabindex="0" aria-disabled="false" href="/title/tt1877830/?ref_=fn_al_tt_1">
+
+            <h2 class="link-dark text-uppercase">{{ movie["Title"] }}</h2>
+
+          </a>
+          <span class="badge bg-secondary">{{ movie["Year"] }}</span>
+          <span class="badge bg-primary">{{ movie["Type"] }}</span>
+
+        </div>
+
+      </div>
+      <hr />
+    </div>
+
+
+  </div>

@@ -1,9 +1,28 @@
-<p>layout-one works!</p>
-<app-logo></app-logo>
-<app-navbar></app-navbar>
-<div class="container">
-    <!-- <ng-content></ng-content> -->
-    <p>layout um</p>
-    <router-outlet></router-outlet>
-</div>
-<app-footer>2022</app-footer>
+<app-header />
+
+
+<main class="container">
+
+  <router-outlet />
+
+</main>
+
+
+<app-footer />
+<!--
+
+
+  <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
+    <a href="/" class="d-flex align-items-center col-md-3 mb-2 mb-md-0 text-dark text-decoration-none">
+    </a>
+
+
+    <app-navbar />
+
+    <div class="col-md-3 text-end">
+
+    </div>
+  </header>
+
+
+ -->

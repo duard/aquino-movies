@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewEncapsulation } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -6,8 +6,7 @@ import { CommonModule } from '@angular/common';
   standalone: true,
   imports: [CommonModule],
   templateUrl: './movies-show.component.html',
-  styleUrls: ['./movies-show.component.scss']
+  styleUrls: ['./movies-show.component.scss'],
+  encapsulation: ViewEncapsulation.Emulated,
 })
-export class MoviesShowComponent {
-
-}
+export class MoviesShowComponent {}

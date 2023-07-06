@@ -1,13 +1,14 @@
-import { Component } from '@angular/core';
+import { Component, ViewEncapsulation } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { NavbarComponent } from '../navbar/navbar/navbar.component';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [CommonModule],
   templateUrl: './header.component.html',
-  styleUrls: ['./header.component.scss']
+  styleUrls: ['./header.component.scss'],
+  encapsulation: ViewEncapsulation.Emulated,
+  imports: [CommonModule, RouterModule, NavbarComponent],
 })
-export class HeaderComponent {
-
-}
+export class HeaderComponent {}
