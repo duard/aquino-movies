@@ -4,6 +4,7 @@ import { RouterOutlet } from '@angular/router';
 import { FooterComponent } from '../components/footer/footer.component';
 import { NavbarComponent } from '../components/navbar/navbar/navbar.component';
 import { HeaderComponent } from '../components/header/header.component';
+import packageJson from '../../../../package.json';
 
 @Component({
   selector: 'app-layout-one',
@@ -20,4 +21,8 @@ import { HeaderComponent } from '../components/header/header.component';
     HeaderComponent,
   ],
 })
-export class LayoutOneComponent {}
+export class LayoutOneComponent {
+  appName: any = packageJson.displayName;
+
+  title = 'Aquino Movies';
+}

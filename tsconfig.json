@@ -14,6 +14,8 @@
       "@layout/*": ["src/app/layout/*"],
       "@utils/*": ["src/app/utils/*"]
     },
+    "resolveJsonModule": true,
+    "allowSyntheticDefaultImports": true,
     "outDir": "./dist/out-tsc",
     "forceConsistentCasingInFileNames": true,
     "strict": true,

@@ -1,5 +1,5 @@
 import { createActionGroup, props } from '@ngrx/store';
-import { SearchResult } from './movie';
+import { MovieDetail, SearchResult } from './movie';
 
 export const MoviesActions = createActionGroup({
   source: 'Movies API',
@@ -10,5 +10,6 @@ export const MoviesActions = createActionGroup({
     }>(),
     'Search Movies Success': props<{ result: SearchResult }>(),
     'Search Movies Failure': props<{ error: string }>(),
+    'Load One Movie Success': props<{ movie: Required<MovieDetail> }>(),
   },
 });

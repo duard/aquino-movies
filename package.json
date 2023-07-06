@@ -1,6 +1,7 @@
 {
   "name": "aquino-movies",
   "version": "0.0.0",
+  "displayName": "Simples Movies",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",

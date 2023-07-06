@@ -1,4 +1,4 @@
-export interface MovieWrong {
+export interface MovieDetail {
   Title: string;
   Year: string;
   Rated: string;

@@ -1,4 +1,4 @@
-import { Component, ViewEncapsulation } from '@angular/core';
+import { Component, Input, ViewEncapsulation } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NavbarComponent } from '../navbar/navbar/navbar.component';
 import { RouterModule } from '@angular/router';
@@ -11,4 +11,6 @@ import { RouterModule } from '@angular/router';
   encapsulation: ViewEncapsulation.Emulated,
   imports: [CommonModule, RouterModule, NavbarComponent],
 })
-export class HeaderComponent {}
+export class HeaderComponent {
+  @Input() appDisplayName: string | undefined;
+}

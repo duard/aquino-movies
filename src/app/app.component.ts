@@ -18,6 +18,4 @@ import { HeaderComponent } from './layout/components/header/header.component';
     HeaderComponent,
   ],
 })
-export class AppComponent {
-  title = 'aquino-movies';
-}
+export class AppComponent {}

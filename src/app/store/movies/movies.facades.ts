@@ -1,18 +1,17 @@
 import { Injectable } from '@angular/core';
-
-import { MoviesActions } from './movies.actions';
-import { MoviesState } from './movies.reducers';
-import { Store, select } from '@ngrx/store';
-import { SearchMovies, SearchResult } from './movie';
+import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { getSearchedMovies } from './movies.selectors';
+import { SearchMovies } from './movie';
+import { MoviesActions } from './movies.actions';
+import { MoviesState } from './movies.state';
+import * as fromMoviesSearch from './movies.selectors';
 
 @Injectable({
   providedIn: 'root',
 })
 export class MoviesFacade {
   public searchedMovies$: Observable<SearchMovies[]> = this.store.pipe(
-    select(getSearchedMovies)
+    select(fromMoviesSearch.selectMoviesSearchItens)
   );
 
   constructor(private store: Store<MoviesState>) {}

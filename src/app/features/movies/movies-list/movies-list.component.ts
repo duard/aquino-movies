@@ -4,11 +4,12 @@ import { MoviesFacade, SearchMovies } from '@store/movies';
 import { Observable } from 'rxjs';
 import { NgOptimizedImage } from '@angular/common';
 import { NgbPagination } from '@ng-bootstrap/ng-bootstrap';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-movies-list',
   standalone: true,
-  imports: [CommonModule, NgOptimizedImage, NgbPagination],
+  imports: [CommonModule, RouterModule, NgOptimizedImage, NgbPagination],
   templateUrl: './movies-list.component.html',
   styleUrls: ['./movies-list.component.scss'],
   encapsulation: ViewEncapsulation.None,
@@ -18,7 +19,7 @@ export class MoviesListComponent {
 
   currentPage = 1;
   data: any = [];
-
+  selectedId = 129;
   searchedMovies$: Observable<SearchMovies[]> =
     this.moviesFacade.searchedMovies$;
 

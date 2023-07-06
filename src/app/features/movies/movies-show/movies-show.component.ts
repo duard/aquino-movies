@@ -9,4 +9,8 @@ import { CommonModule } from '@angular/common';
   styleUrls: ['./movies-show.component.scss'],
   encapsulation: ViewEncapsulation.Emulated,
 })
-export class MoviesShowComponent {}
+export class MoviesShowComponent {
+  ngOnInit() {
+    console.log(`Show Movie`);
+  }
+}

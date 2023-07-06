@@ -1,13 +1,27 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
+import { getSelectors } from '@ngrx/router-store';
 
-import { MoviesState } from './movies.reducers';
+import { createEntityAdapter } from '@ngrx/entity';
+import { SearchMovies } from './movie';
+import { SearchMoviesState } from './movies.state';
 
-export const getAllMoviesState = createFeatureSelector<MoviesState>('movies');
+export const moviesFeature = createFeatureSelector<SearchMoviesState>('movies');
 
-export const getSearchedMoviesState =
-  createFeatureSelector<MoviesState>('movies-search');
+export const moviesAdapter = createEntityAdapter<SearchMovies>();
+export const selectors = moviesAdapter.getSelectors();
 
-export const getSearchedMovies = createSelector(
-  getSearchedMoviesState,
-  (state: MoviesState) => state.movieItems
+export const selectMoviesSearchItens = createSelector(
+  moviesFeature,
+  selectors.selectAll
+);
+export const selectMoviesSearchItensEntities = createSelector(
+  moviesFeature,
+  selectors.selectEntities
+);
+const { selectRouteParams } = getSelectors();
+
+export const selectMovieById = createSelector(
+  selectMoviesSearchItensEntities,
+  selectRouteParams,
+  (entities, { id }) => entities[id]
 );
