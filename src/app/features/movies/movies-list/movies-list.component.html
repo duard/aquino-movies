@@ -1,6 +1,6 @@
-<div class="container">
+<div class="container" *ngIf="movieItems$ | async as movieItems">
 
-  <div class="col-12 justify-content-center">
+  <div *ngIf="movieItems.length > 0" class="col-12 justify-content-center">
     <ngb-pagination [collectionSize]="(rows$ | async) || 0" [disabled]="(isLoading$ | async)!" [(page)]="pageNum!"
       [maxSize]="5" [rotate]="true" [boundaryLinks]="true" size="sm" (pageChange)="onPageChange(pageNum)">
     </ngb-pagination>
@@ -15,9 +15,9 @@
   <pre>isLoading : {{ (isLoading$ | async) || false }}</pre>
   <pre>error : {{ (error$ | async) || "" }}</pre>
 
-  <pre>selectedMovie : {{ (selectedMovie$ | async) || null }}</pre>
+  <pre>selectedMovie : {{ (selectedMovie$ | async)?.Title || null }}</pre>
 
-  <div *ngFor=" let movie of movieItems$ | async">
+  <div *ngFor=" let movie of movieItems">
 
     <div class="row m-2">
       <div class="col-4 col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
@@ -33,4 +33,9 @@
     </div>
     <hr />
   </div>
+</div>
+
+<div class="row" *ngIf="movieItems$ | async as movieItems">
+  <ng-container *ngIf="movieItems.length > 0">DADOS</ng-container>
+  <ng-container *ngIf="movieItems.length <= 0">SEM DADOS</ng-container>
 </div>
