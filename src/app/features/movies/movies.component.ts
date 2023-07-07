@@ -1,6 +1,6 @@
 import { Component, Input, ViewEncapsulation, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterModule, RouterOutlet } from '@angular/router';
+import { Router, RouterModule, RouterOutlet } from '@angular/router';
 import { InputSearchComponent } from '../../shared/components/input-search/input-search.component';
 import { MoviesFacade, SearchMovies } from '@store/movies';
 import { Observable } from 'rxjs';
@@ -18,14 +18,15 @@ export class MoviesComponent {
   @Input() searchValue: string = '';
   private readonly moviesFacade: MoviesFacade = inject(MoviesFacade);
 
-  constructor() {
-    console.log(
-      'MoviesComponent QUERY pageNum',
-      this.pageNum,
-      this.searchValue
-    );
-    // this.moviesFacade.searchMovie(Number(this.pageNum));
-  }
+  constructor(private router: Router) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.router.navigate(['/movies'], {
+      queryParams: { pageNum: this.pageNum, searchValue: this.searchValue },
+    });
+
+    if (this.pageNum && this.searchValue) {
+      this.moviesFacade.searchMovie(this.pageNum, this.searchValue);
+    }
+  }
 }

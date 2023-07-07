@@ -23,8 +23,6 @@ export class MoviesFacade {
   constructor(private store: Store<MoviesState>) {}
 
   searchMovie(page: number, searchValue: string): void {
-    console.log('FACADE BUCA', page, searchValue);
-
     this.store.dispatch(
       MoviesActions.searchMoviesFetch({
         pageNum: page,

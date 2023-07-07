@@ -7,8 +7,6 @@ export const moviesReducer = createReducer(
   initialState,
 
   on(MoviesActions.searchMoviesFetch, (state, action) => {
-    console.log('STATE PAGE', state);
-
     const resultMutation = {
       ...state,
       page: action.pageNum,

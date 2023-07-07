@@ -42,17 +42,12 @@ export class MoviesShowComponent {
     config.readonly = true;
   }
   ngOnInit() {
-    console.log(`Show Movie`, this.id);
     this.setRatings();
-    setTimeout(() => {
-      console.log('Ill print third after a second');
-      this.moviesFacade.loadMovie(this.id!);
-    }, 800);
   }
 
+  // metodo precisa ser melhorado
   setRatings() {
-    this.selectedMovie$.subscribe((movie) => {
-      console.log('Movie', movie);
+    this.subscription = this.selectedMovie$.subscribe((movie) => {
       movie?.Ratings.forEach((rating: Rating) => {
         const [value, maxValue] = rating.Value.includes('/')
           ? rating.Value.split('/')
@@ -85,7 +80,6 @@ export class MoviesShowComponent {
 
         this.ratings.push(workedRating);
       });
-      console.log('ratings', this.ratings);
     });
   }
 
@@ -93,7 +87,12 @@ export class MoviesShowComponent {
     return el.id;
   }
   ngOnDestroy() {
+    // implementar o destroy
+    //
     // this.onDestroy.next();
     // this.onDestroy.complete();
+    console.log('destruido');
+
+    this.subscription.unsubscribe();
   }
 }

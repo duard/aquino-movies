@@ -5,11 +5,11 @@
       <div class="input-group">
 
         <input type="text" formControlName="searchField" class="form-control rounded" placeholder="Search"
-          aria-label="Search" aria-describedby="search-addon" required="true"
+          aria-label="Search" aria-describedby="search-addon" required="true" [disabled]="(isLoading$ | async)!"
           [ngClass]="{ 'is-invalid': submitted && f['searchField'].errors }" />
 
-        <button type="submit" class="btn btn-primary btn-lg"> Search </button>
-        <button type="button" class="btn btn-secondary btn-lg"> Reset </button>
+        <button type="submit" class="btn btn-primary btn-lg" [disabled]="(isLoading$ | async)!"> Search </button>
+        <button type="button" class="btn btn-secondary btn-lg" [disabled]="(isLoading$ | async)!"> Reset </button>
 
 
       </div>

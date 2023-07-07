@@ -13,8 +13,6 @@ export class UnlessDirective {
   ) {}
 
   @Input() set appUnless(condition: boolean) {
-    console.log('dentro da directive appUnless');
-
     if (!condition && !this.hasView) {
       this.viewContainer.createEmbeddedView(this.templateRef);
       this.hasView = true;

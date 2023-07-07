@@ -36,12 +36,6 @@ export class InputSearchComponent {
     this.form = this.formBuilder.group({
       searchField: ['', Validators.required],
     });
-    // this.searchControl.valueChanges
-    //   .pipe(debounceTime(500), distinctUntilChanged())
-    //   .subscribe((searchString) => {
-    //     console.log(`debounced text input value ${searchString}`);
-    //     this.searchValue = searchString;
-    //   });
   }
 
   get f(): { [key: string]: AbstractControl } {
@@ -50,7 +44,6 @@ export class InputSearchComponent {
 
   onSubmit(): void {
     this.submitted = true;
-    console.log('form status', this.form.status);
 
     if (this.form.invalid) {
       return;

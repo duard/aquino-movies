@@ -13,8 +13,6 @@ export class ShowMovieDirective {
   ) {}
 
   @Input() set appShowMovie(sameMovie: boolean) {
-    console.log('dentro da directive appShowMovie', sameMovie);
-
     if (sameMovie && !this.hasView) {
       this.viewContainer.createEmbeddedView(this.templateRef);
       this.hasView = true;
