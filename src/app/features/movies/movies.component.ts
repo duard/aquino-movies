@@ -17,6 +17,6 @@ export class MoviesComponent {
   private readonly moviesFacade: MoviesFacade = inject(MoviesFacade);
 
   ngOnInit() {
-    this.moviesFacade.getAll();
+    // this.moviesFacade.searchMovie(5);
   }
 }

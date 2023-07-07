@@ -1,27 +1,41 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
-import { getSelectors } from '@ngrx/router-store';
+import { MoviesState } from './movies.state';
 
-import { createEntityAdapter } from '@ngrx/entity';
-import { SearchMovies } from './movie';
-import { SearchMoviesState } from './movies.state';
+export const featureKey = 'movies-search';
+export const selectFeature = createFeatureSelector<MoviesState>(featureKey);
 
-export const moviesFeature = createFeatureSelector<SearchMoviesState>('movies');
+export const movieFeature = createFeatureSelector<MoviesState>('movies-search');
 
-export const moviesAdapter = createEntityAdapter<SearchMovies>();
-export const selectors = moviesAdapter.getSelectors();
-
-export const selectMoviesSearchItens = createSelector(
-  moviesFeature,
-  selectors.selectAll
+export const selectSelectedMovie = createSelector(
+  selectFeature,
+  (state: MoviesState) => state.selectedMovie
 );
-export const selectMoviesSearchItensEntities = createSelector(
-  moviesFeature,
-  selectors.selectEntities
+export const selectMovieItems = createSelector(
+  movieFeature,
+  (state: MoviesState) => state.movieItems
 );
-const { selectRouteParams } = getSelectors();
 
-export const selectMovieById = createSelector(
-  selectMoviesSearchItensEntities,
-  selectRouteParams,
-  (entities, { id }) => entities[id]
+export const selectIsLoading = createSelector(
+  selectFeature,
+  (state: MoviesState) => state.isLoading
+);
+
+export const selectError = createSelector(
+  selectFeature,
+  (state: MoviesState) => state.error
+);
+
+export const selectPageSize = createSelector(
+  selectFeature,
+  (state: MoviesState) => state.pageSize
+);
+
+export const selectPage = createSelector(
+  selectFeature,
+  (state: MoviesState) => state.page
+);
+
+export const selectRows = createSelector(
+  selectFeature,
+  (state: MoviesState) => state.rows
 );

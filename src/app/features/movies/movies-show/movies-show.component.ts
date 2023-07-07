@@ -1,4 +1,4 @@
-import { Component, ViewEncapsulation } from '@angular/core';
+import { Component, Input, ViewEncapsulation } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -10,7 +10,10 @@ import { CommonModule } from '@angular/common';
   encapsulation: ViewEncapsulation.Emulated,
 })
 export class MoviesShowComponent {
+  @Input() movieId?: string; // we can use the same name as the query param
+  @Input() id?: string; // we can use the same name as the query param
+
   ngOnInit() {
-    console.log(`Show Movie`);
+    console.log(`Show Movie`, this.movieId, this.id);
   }
 }

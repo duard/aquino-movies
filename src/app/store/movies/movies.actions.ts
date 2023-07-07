@@ -5,8 +5,7 @@ export const MoviesActions = createActionGroup({
   source: 'Movies API',
   events: {
     'Search Movies Fetch': props<{
-      movieId?: number;
-      searchParam?: string;
+      pageNum: number;
     }>(),
     'Search Movies Success': props<{ result: SearchResult }>(),
     'Search Movies Failure': props<{ error: string }>(),

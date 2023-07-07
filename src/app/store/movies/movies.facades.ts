@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { select, Store } from '@ngrx/store';
+import { select, Store, StoreModule } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { SearchMovies } from './movie';
+import { MovieDetail, SearchMovies } from './movie';
 import { MoviesActions } from './movies.actions';
 import { MoviesState } from './movies.state';
 import * as fromMoviesSearch from './movies.selectors';
@@ -10,13 +10,25 @@ import * as fromMoviesSearch from './movies.selectors';
   providedIn: 'root',
 })
 export class MoviesFacade {
-  public searchedMovies$: Observable<SearchMovies[]> = this.store.pipe(
-    select(fromMoviesSearch.selectMoviesSearchItens)
+  // public selectedMovie$ = this.store.select(
+  //   fromMoviesSearch.selectSelectedMovie
+  // );
+
+  public selectedMovie$ = this.store.select(
+    fromMoviesSearch.selectSelectedMovie
   );
+  public movieItems$ = this.store.select(fromMoviesSearch.selectMovieItems);
+  public isLoading$ = this.store.select(fromMoviesSearch.selectIsLoading);
+  public error$ = this.store.select(fromMoviesSearch.selectError);
+  public pageSize$ = this.store.select(fromMoviesSearch.selectPageSize);
+  public page$ = this.store.select(fromMoviesSearch.selectPage);
+  public rows$ = this.store.select(fromMoviesSearch.selectRows);
 
   constructor(private store: Store<MoviesState>) {}
 
-  getAll(): void {
-    this.store.dispatch(MoviesActions.searchMoviesFetch({}));
+  searchMovie(page: number): void {
+    console.log('FACADE PAGE', page);
+
+    this.store.dispatch(MoviesActions.searchMoviesFetch({ pageNum: page }));
   }
 }

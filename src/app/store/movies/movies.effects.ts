@@ -11,12 +11,15 @@ import { Observable } from 'rxjs';
 export class MovieEffects {
   constructor(private actions$: Actions, private movieService: MovieService) {}
 
-  loadMovie$ = createEffect(
+  searchMovies$ = createEffect(
     () =>
       this.actions$.pipe(
         ofType(MoviesActions.searchMoviesFetch),
-        mergeMap(() =>
-          this.movieService.getAll().pipe(
+        mergeMap(({ pageNum }) =>
+          this.movieService.getAll(pageNum | 1).pipe(
+            // tap((data) => {
+            //   console.log('from searchMoviesFetch', data);
+            // }),
             map((result) =>
               MoviesActions.searchMoviesSuccess({
                 result,

@@ -1,26 +1,21 @@
-import { EntityState, createEntityAdapter } from '@ngrx/entity';
 import { MovieDetail, SearchMovies } from './movie';
 
 export interface MoviesState {
-  selectedMovie: SearchMovies | undefined;
+  selectedMovie: MovieDetail | undefined;
   movieItems: SearchMovies[];
-  offset: number;
-  pageSize: number;
-  totalResults: string;
   isLoading: boolean;
   error: string | undefined;
+  page: number;
+  pageSize: number;
+  rows: number;
 }
 
 export const initialState: MoviesState = {
   selectedMovie: undefined,
   movieItems: [],
-  offset: 0,
-  pageSize: 10,
-  totalResults: '',
   isLoading: false,
   error: '',
+  page: 0,
+  pageSize: 5,
+  rows: 0,
 };
-
-export interface SearchMoviesState extends EntityState<SearchMovies> {}
-
-export const productsAdapter = createEntityAdapter<MovieDetail>();

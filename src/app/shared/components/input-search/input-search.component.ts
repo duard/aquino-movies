@@ -60,8 +60,6 @@ export class InputSearchComponent {
     if (this.form.invalid) {
       return;
     }
-
-    console.log('dados do form', JSON.stringify(this.form.value, null, 2));
   }
 
   onReset(): void {
