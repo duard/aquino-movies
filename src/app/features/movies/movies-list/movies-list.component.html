@@ -1,14 +1,14 @@
 <div class="container">
 
-  <div *ngIf="movieItems$ | async as movieList">
+  <!-- <div *ngIf="movieItems$ | async as movieList"> -->
 
-    <div *ngIf="currentPage >= 1">
+    <!-- <div *ngIf="currentPage >= 1"> -->
       <div class="col-12 justify-content-center">
-        <ngb-pagination [collectionSize]="(rows$ | async) || 0" [(page)]="currentPage" [maxSize]="5" [rotate]="true"
-          [boundaryLinks]="true" size="sm" (pageChange)="onPageChange(currentPage)">
+        <ngb-pagination [collectionSize]="(rows$ | async) || 0"  [disabled]="(isLoading$ | async)!" [(page)]="pageNum!" [maxSize]="15" [rotate]="true"
+          [boundaryLinks]="true" size="sm" (pageChange)="onPageChange(pageNum)">
         </ngb-pagination>
       </div>
-      <pre>Current page: {{ currentPage }}</pre>
+      <pre>Current page: {{ pageNum }}</pre>
 
       <pre>rows : {{ (rows$ | async) || 0 }}</pre>
       <pre>page : {{ (page$ | async) || 0 }}</pre>
@@ -31,7 +31,7 @@
             <img src="{{ movie['Poster'] }}" class="img-fluid" alt="{{ movie['Title'] }}">
           </div>
           <div class="col-8 col-xs-8 col-sm-8 col-md-8 col-lg-8 col-xl-8 col-xxl-8">
-            <a role="button" tabindex="0" aria-disabled="false" routerLink="/movies/{{selectedId}}">
+            <a role="button" tabindex="0" aria-disabled="false" routerLink="/movies/{{movie.imdbID}}">
               <h2 class="link-dark text-uppercase">{{ movie["Title"] }}</h2>
             </a>
             <span class="badge bg-secondary">{{ movie["Year"] }}</span>
@@ -41,5 +41,8 @@
         <hr />
       </div>
     </div>
-  </div>
-</div>
+
+
+
+  <!-- </div> -->
+<!-- </div> -->

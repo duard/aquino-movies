@@ -9,6 +9,11 @@ export const MoviesActions = createActionGroup({
     }>(),
     'Search Movies Success': props<{ result: SearchResult }>(),
     'Search Movies Failure': props<{ error: string }>(),
-    'Load One Movie Success': props<{ movie: Required<MovieDetail> }>(),
+
+    'Load Movie By Id Fetch': props<{
+      imdbID: string;
+    }>(),
+    'Load Movie By Id Success': props<{ movie: MovieDetail }>(),
+    'Load Movie By Id Failure': props<{ error: string }>(),
   },
 });

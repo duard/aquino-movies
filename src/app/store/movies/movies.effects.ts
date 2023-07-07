@@ -16,10 +16,10 @@ export class MovieEffects {
       this.actions$.pipe(
         ofType(MoviesActions.searchMoviesFetch),
         mergeMap(({ pageNum }) =>
-          this.movieService.getAll(pageNum | 1).pipe(
-            // tap((data) => {
-            //   console.log('from searchMoviesFetch', data);
-            // }),
+          this.movieService.getSearchMovies(pageNum).pipe(
+            tap((data) => {
+              console.log('searchMovies', pageNum);
+            }),
             map((result) =>
               MoviesActions.searchMoviesSuccess({
                 result,
@@ -32,6 +32,26 @@ export class MovieEffects {
     { dispatch: true }
   );
 
+  oneMovie$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(MoviesActions.loadMovieByIdFetch),
+        mergeMap(({ imdbID }) =>
+          this.movieService.getMovieById(imdbID).pipe(
+            tap((data) => {
+              console.log('oneMovie', data);
+            }),
+            map((result) =>
+              MoviesActions.loadMovieByIdSuccess({
+                movie: result,
+              })
+            ),
+            catchError((error) => [MoviesActions.loadMovieByIdFailure(error)])
+          )
+        )
+      ),
+    { dispatch: true }
+  );
   // This one logs all dispatched actions
   // Debug$: Observable<any> = createEffect(
   //   () =>

@@ -15,7 +15,7 @@ export const initialState: MoviesState = {
   movieItems: [],
   isLoading: false,
   error: '',
-  page: 0,
-  pageSize: 5,
+  page: 4,
+  pageSize: 10,
   rows: 0,
 };

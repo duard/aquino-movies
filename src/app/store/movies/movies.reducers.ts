@@ -1,6 +1,6 @@
 import { Action, State, createReducer, on, props } from '@ngrx/store';
 import { MoviesActions } from './movies.actions';
-import { SearchMovies } from './movie';
+import { MovieDetail, SearchMovies, SearchResult } from './movie';
 import { MoviesState, initialState } from './movies.state';
 
 export const moviesReducer = createReducer(
@@ -23,7 +23,7 @@ export const moviesReducer = createReducer(
   //   return resultMutation;
   // }),
 
-  on(MoviesActions.searchMoviesSuccess, (state: any, { result }) => {
+  on(MoviesActions.searchMoviesSuccess, (state: MoviesState, { result }) => {
     const resultMutation = {
       ...state,
       movieItems: result.Search,
@@ -31,11 +31,20 @@ export const moviesReducer = createReducer(
       isLoading: false,
       pageSize: state.pageSize,
       page: state.page,
-      rows: result.totalResults,
+      rows: Number(result.totalResults),
     };
 
     console.log('reducer page', resultMutation.page);
 
+    return resultMutation;
+  }),
+  on(MoviesActions.loadMovieByIdSuccess, (state: MoviesState, { movie }) => {
+    console.log('loadMovieByIdSuccess', movie);
+
+    const resultMutation = {
+      ...state,
+      selectedMovie: movie,
+    };
     return resultMutation;
   })
 );

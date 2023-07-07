@@ -31,4 +31,10 @@ export class MoviesFacade {
 
     this.store.dispatch(MoviesActions.searchMoviesFetch({ pageNum: page }));
   }
+
+  loadMovie(imdbID: string): void {
+    console.log('FACADE LOADMOVIE BY ID ', imdbID);
+
+    this.store.dispatch(MoviesActions.loadMovieByIdFetch({ imdbID: imdbID }));
+  }
 }
