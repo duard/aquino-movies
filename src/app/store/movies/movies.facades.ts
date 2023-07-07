@@ -10,10 +10,6 @@ import * as fromMoviesSearch from './movies.selectors';
   providedIn: 'root',
 })
 export class MoviesFacade {
-  // public selectedMovie$ = this.store.select(
-  //   fromMoviesSearch.selectSelectedMovie
-  // );
-
   public selectedMovie$ = this.store.select(
     fromMoviesSearch.selectSelectedMovie
   );
@@ -27,14 +23,10 @@ export class MoviesFacade {
   constructor(private store: Store<MoviesState>) {}
 
   searchMovie(page: number): void {
-    console.log('FACADE PAGE', page);
-
     this.store.dispatch(MoviesActions.searchMoviesFetch({ pageNum: page }));
   }
 
   loadMovie(imdbID: string): void {
-    console.log('FACADE LOADMOVIE BY ID ', imdbID);
-
     this.store.dispatch(MoviesActions.loadMovieByIdFetch({ imdbID: imdbID }));
   }
 }

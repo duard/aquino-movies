@@ -18,7 +18,7 @@ export class MovieEffects {
         mergeMap(({ pageNum }) =>
           this.movieService.getSearchMovies(pageNum).pipe(
             tap((data) => {
-              console.log('searchMovies', pageNum);
+              // console.log('searchMovies', pageNum);
             }),
             map((result) =>
               MoviesActions.searchMoviesSuccess({
@@ -39,7 +39,7 @@ export class MovieEffects {
         mergeMap(({ imdbID }) =>
           this.movieService.getMovieById(imdbID).pipe(
             tap((data) => {
-              console.log('oneMovie', data);
+              // console.log('oneMovie', data);
             }),
             map((result) =>
               MoviesActions.loadMovieByIdSuccess({

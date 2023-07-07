@@ -1,1 +1,61 @@
-<p>movies-show works!</p>
+<!-- <p>movies-show works!</p> -->
+<!-- <pre> {{ (selectedMovie$ | async | json) }}</pre> -->
+<ng-template #loading>
+  <p>Loading...</p>
+</ng-template>
+<pre>NEW : {{ (selectedMovie$ | async)?.imdbID || 0 }}</pre>
+<pre>OLD: {{ id }}</pre>
+<pre>isLoading : {{ (isLoading$ | async) || false }}</pre>
+
+<p *ngIf="(selectedMovie$ | async) && !(isLoading$ | async)">BROMADO</p>
+
+<!-- <p *appShowMovie="(isLoading$ | async)! as boolean"> MOSTRAR SIM</p> -->
+<!-- <h2 *appShowMovie="(isLoading$ | async)">My conditional header</h2> -->
+
+<pre>EQUALS: {{ id ===  (selectedMovie$ | async)?.imdbID || 0}}</pre>
+<pre>NEW {{id}}</pre>
+<pre>OLD  {{(selectedMovie$ | async)?.imdbID}} </pre>
+
+<p *appShowMovie="id ===  ((selectedMovie$ | async)?.imdbID || '')">
+  (A) This paragraph is displayed because the condition is false.
+</p>
+<!-- <ng-container *ngIf="(id ===  (selectedMovie$ | async)?.imdbID) && !(isLoading$ | async) && (selectedMovie$ | async)  as movie ; else loading"> -->
+<ng-container  *ngIf="(selectedMovie$ | async)  as movie ; else loading">
+
+
+  <div *appShowMovie="id ===  ((selectedMovie$ | async)?.imdbID || '')" class="container">
+    <div class="row">
+      <div class="col-md-4">
+        <img [src]="movie.Poster" alt="Movie Poster" class="img-fluid">
+      </div>
+      <div class="col-md-8">
+        <h1 class="mt-3">{{movie.Title}}</h1>
+        <p><strong>Year:</strong> {{movie.Year}}</p>
+        <p><strong>Rated:</strong> {{movie.Rated}}</p>
+        <p><strong>Released:</strong> {{movie.Released}}</p>
+        <p><strong>Runtime:</strong> {{movie.Runtime}}</p>
+        <p><strong>Genre:</strong> {{movie.Genre}}</p>
+        <p><strong>Director:</strong> {{movie.Director}}</p>
+        <p><strong>Writer:</strong> {{movie.Writer}}</p>
+        <p><strong>Actors:</strong> {{movie.Actors}}</p>
+        <p><strong>Plot:</strong> {{movie.Plot}}</p>
+        <p><strong>Language:</strong> {{movie.Language}}</p>
+        <p><strong>Country:</strong> {{movie.Country}}</p>
+        <p><strong>Awards:</strong> {{movie.Awards}}</p>
+        <h3>Ratings</h3>
+        <ul>
+          <li *ngFor="let rating of movie.Ratings"><strong>{{rating.Source}}:</strong> {{rating.Value}}</li>
+        </ul>
+        <p><strong>Metascore:</strong> {{movie.Metascore}}</p>
+        <p><strong>IMDb Rating:</strong> {{movie.imdbRating}}</p>
+        <p><strong>IMDb Votes:</strong> {{movie.imdbVotes}}</p>
+        <p><strong>IMDb ID:</strong> {{movie.imdbID}}</p>
+        <p><strong>Type:</strong> {{movie.Type}}</p>
+        <p><strong>DVD:</strong> {{movie.DVD}}</p>
+        <p><strong>Box Office:</strong> {{movie.BoxOffice}}</p>
+        <p><strong>Production:</strong> {{movie.Production}}</p>
+        <p><strong>Website:</strong> {{movie.Website}}</p>
+      </div>
+    </div>
+  </div>
+</ng-container>

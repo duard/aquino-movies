@@ -6,22 +6,19 @@ import { MoviesState, initialState } from './movies.state';
 export const moviesReducer = createReducer(
   initialState,
 
-  on(MoviesActions.searchMoviesFetch, (state, action) => ({
-    ...state,
-    page: action.pageNum,
-    error: '',
-    isLoading: true,
-  })),
-  // on(MoviesActions.searchMoviesFetch, (state) => {
-  //   const resultMutation = {
-  //     ...state,
-  //     page: props.pageNum,
-  //     error: '',
-  //     isLoading: true,
-  //   };
+  on(MoviesActions.searchMoviesFetch, (state, action) => {
+    console.log('STATE PAGE', state);
+    console.log('ACTION PAGE', action);
 
-  //   return resultMutation;
-  // }),
+    const resultMutation = {
+      ...state,
+      page: action.pageNum,
+      error: '',
+      isLoading: true,
+    };
+
+    return resultMutation;
+  }),
 
   on(MoviesActions.searchMoviesSuccess, (state: MoviesState, { result }) => {
     const resultMutation = {
@@ -34,13 +31,9 @@ export const moviesReducer = createReducer(
       rows: Number(result.totalResults),
     };
 
-    console.log('reducer page', resultMutation.page);
-
     return resultMutation;
   }),
   on(MoviesActions.loadMovieByIdSuccess, (state: MoviesState, { movie }) => {
-    console.log('loadMovieByIdSuccess', movie);
-
     const resultMutation = {
       ...state,
       selectedMovie: movie,

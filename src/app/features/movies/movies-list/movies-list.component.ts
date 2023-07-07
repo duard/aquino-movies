@@ -25,11 +25,6 @@ export class MoviesListComponent implements AfterViewInit, OnInit {
   @Input() pageNum?: number; // we
   private readonly moviesFacade: MoviesFacade = inject(MoviesFacade);
 
-  // currentPage: number = -1;
-  data: any = [];
-  selectedId = 129;
-
-  // movieItems$: Observable<SearchMovies[]> = this.moviesFacade.movieItems$;
   selectedMovie$: Observable<MovieDetail | undefined> =
     this.moviesFacade.selectedMovie$;
 
@@ -60,7 +55,7 @@ export class MoviesListComponent implements AfterViewInit, OnInit {
 
   onPageChange(pageNum: number | undefined) {
     if (pageNum) {
-      console.log('changing', pageNum);
+      console.log('PAGENUM COMPONENTE', pageNum);
       this.router.navigate(['/movies'], {
         queryParams: { pageNum: pageNum },
       });

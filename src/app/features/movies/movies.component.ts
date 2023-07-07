@@ -20,8 +20,8 @@ export class MoviesComponent {
   private readonly moviesFacade: MoviesFacade = inject(MoviesFacade);
 
   constructor() {
-    // console.log('MoviesComponent QUERY pageNum', this.pageNum);
-    // this.moviesFacade.searchMovie(Number(this.pageNum));
+    console.log('MoviesComponent QUERY pageNum', this.pageNum);
+    this.moviesFacade.searchMovie(Number(this.pageNum));
   }
 
   ngOnInit() {}
