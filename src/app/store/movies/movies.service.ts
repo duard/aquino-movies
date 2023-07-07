@@ -7,6 +7,8 @@ import { MovieDetail, SearchResult } from './movie';
 export class MovieService {
   constructor(private http: HttpClient) {}
 
+  // ps. deixei a chave no sevice para facilitar a verificação.
+
   public getSearchMovies(
     page: number,
     searchValue: string
