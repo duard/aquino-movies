@@ -7,18 +7,16 @@ import { MovieDetail, SearchResult } from './movie';
 export class MovieService {
   constructor(private http: HttpClient) {}
 
-  public getSearchMovies(page: number): Observable<SearchResult> {
+  public getSearchMovies(
+    page: number,
+    searchValue: string
+  ): Observable<SearchResult> {
     const result = this.http.get<SearchResult>(
-      `http://www.omdbapi.com/?s=Batman&page=${page}&apikey=946b10d1`
+      `http://www.omdbapi.com/?s=${searchValue}&page=${page}&apikey=946b10d1`
     );
-    console.log(`http://www.omdbapi.com/?s=Batman&page=${page}`);
 
     return result;
   }
-
-  // https://www.omdbapi.com/?i=tt0372784&apikey=946b10d1
-  // https://www.omdbapi.com/?s=Batman&page=28&apikey=946b10d1
-  // https://www.omdbapi.com/?i=tt0372784&apikey=946b10d1
 
   public getMovieById(movieId: string): Observable<MovieDetail> {
     const result = this.http.get<MovieDetail>(
@@ -29,3 +27,6 @@ export class MovieService {
   }
 }
 // https://www.omdbapi.com/?s=Batman&page=2
+// https://www.omdbapi.com/?i=tt0372784&apikey=946b10d1
+// https://www.omdbapi.com/?s=Batman&page=28&apikey=946b10d1
+// https://www.omdbapi.com/?i=tt0372784&apikey=946b10d1

@@ -1,4 +1,4 @@
-import { Component, ViewEncapsulation } from '@angular/core';
+import { Component, ViewEncapsulation, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
   ReactiveFormsModule,
@@ -8,13 +8,10 @@ import {
   Validators,
   AbstractControl,
 } from '@angular/forms';
-import Validation from 'src/app/utils/validation';
-import { FaIconLibrary } from '@fortawesome/angular-fontawesome';
-import {
-  faSquare,
-  faCheckSquare,
-  faSearch,
-} from '@fortawesome/free-solid-svg-icons';
+
+import { MoviesFacade } from '@store/movies';
+import { Observable, debounceTime, distinctUntilChanged } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-input-search',
@@ -25,29 +22,26 @@ import {
   encapsulation: ViewEncapsulation.None,
 })
 export class InputSearchComponent {
+  private readonly moviesFacade: MoviesFacade = inject(MoviesFacade);
+  isLoading$: Observable<boolean> = this.moviesFacade.isLoading$;
+
   form: FormGroup = new FormGroup({
     searchField: new FormControl(''),
-    username: new FormControl(''),
-    email: new FormControl(''),
-    password: new FormControl(''),
-    confirmPassword: new FormControl(''),
-    acceptTerms: new FormControl(false),
   });
+
   submitted = false;
 
-  constructor(library: FaIconLibrary, private formBuilder: FormBuilder) {
-    library.addIcons(
-      faSquare,
-      faCheckSquare,
-      faSquare,
-      faCheckSquare,
-      faSearch
-    );
-  }
+  constructor(private router: Router, private formBuilder: FormBuilder) {}
   ngOnInit(): void {
     this.form = this.formBuilder.group({
       searchField: ['', Validators.required],
     });
+    // this.searchControl.valueChanges
+    //   .pipe(debounceTime(500), distinctUntilChanged())
+    //   .subscribe((searchString) => {
+    //     console.log(`debounced text input value ${searchString}`);
+    //     this.searchValue = searchString;
+    //   });
   }
 
   get f(): { [key: string]: AbstractControl } {
@@ -56,10 +50,18 @@ export class InputSearchComponent {
 
   onSubmit(): void {
     this.submitted = true;
+    console.log('form status', this.form.status);
 
     if (this.form.invalid) {
       return;
     }
+    const searchValue = this.form.value.searchField;
+
+    this.router.navigate(['/movies'], {
+      queryParams: { searchValue: searchValue, pageNum: 1 },
+    });
+    console.log('form busca', searchValue, 'pageNum', 1);
+    this.moviesFacade.searchMovie(1, this.form.value.searchField);
   }
 
   onReset(): void {

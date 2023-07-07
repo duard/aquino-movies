@@ -14,14 +14,17 @@ import { Observable } from 'rxjs';
   imports: [CommonModule, RouterOutlet, RouterModule, InputSearchComponent],
 })
 export class MoviesComponent {
-  @Input() pageNum?: string; // we can use the same name as the query param
-  // we can use the same name as the query param
-
+  @Input() pageNum: number = 1;
+  @Input() searchValue: string = '';
   private readonly moviesFacade: MoviesFacade = inject(MoviesFacade);
 
   constructor() {
-    console.log('MoviesComponent QUERY pageNum', this.pageNum);
-    this.moviesFacade.searchMovie(Number(this.pageNum));
+    console.log(
+      'MoviesComponent QUERY pageNum',
+      this.pageNum,
+      this.searchValue
+    );
+    // this.moviesFacade.searchMovie(Number(this.pageNum));
   }
 
   ngOnInit() {}

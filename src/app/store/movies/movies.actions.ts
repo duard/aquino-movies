@@ -6,6 +6,7 @@ export const MoviesActions = createActionGroup({
   events: {
     'Search Movies Fetch': props<{
       pageNum: number;
+      searchValue: string;
     }>(),
     'Search Movies Success': props<{ result: SearchResult }>(),
     'Search Movies Failure': props<{ error: string }>(),

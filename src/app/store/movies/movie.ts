@@ -30,7 +30,11 @@ export interface Rating {
   Source: string;
   Value: string;
 }
-
+export interface WorkedRating {
+  source: string;
+  value: number;
+  maxValue: number;
+}
 export interface SearchMovies {
   Title: string;
   Year: string;

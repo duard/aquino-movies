@@ -15,8 +15,8 @@ export class MovieEffects {
     () =>
       this.actions$.pipe(
         ofType(MoviesActions.searchMoviesFetch),
-        mergeMap(({ pageNum }) =>
-          this.movieService.getSearchMovies(pageNum).pipe(
+        mergeMap(({ pageNum, searchValue }) =>
+          this.movieService.getSearchMovies(pageNum, searchValue).pipe(
             tap((data) => {
               // console.log('searchMovies', pageNum);
             }),

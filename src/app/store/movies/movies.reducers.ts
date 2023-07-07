@@ -8,11 +8,11 @@ export const moviesReducer = createReducer(
 
   on(MoviesActions.searchMoviesFetch, (state, action) => {
     console.log('STATE PAGE', state);
-    console.log('ACTION PAGE', action);
 
     const resultMutation = {
       ...state,
       page: action.pageNum,
+      searchValue: action.searchValue,
       error: '',
       isLoading: true,
     };
@@ -24,6 +24,7 @@ export const moviesReducer = createReducer(
     const resultMutation = {
       ...state,
       movieItems: result.Search,
+      searchValue: state.searchValue,
       error: '',
       isLoading: false,
       pageSize: state.pageSize,

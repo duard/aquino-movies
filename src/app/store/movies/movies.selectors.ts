@@ -20,6 +20,11 @@ export const selectIsLoading = createSelector(
   (state: MoviesState) => state.isLoading
 );
 
+export const selectSearchValue = createSelector(
+  selectFeature,
+  (state: MoviesState) => state.searchValue
+);
+
 export const selectError = createSelector(
   selectFeature,
   (state: MoviesState) => state.error

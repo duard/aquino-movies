@@ -22,7 +22,9 @@ import { Router, RouterModule } from '@angular/router';
   encapsulation: ViewEncapsulation.None,
 })
 export class MoviesListComponent implements AfterViewInit, OnInit {
-  @Input() pageNum?: number; // we
+  @Input() pageNum: number = 1;
+  @Input() searchValue: string = '';
+
   private readonly moviesFacade: MoviesFacade = inject(MoviesFacade);
 
   selectedMovie$: Observable<MovieDetail | undefined> =
@@ -55,11 +57,13 @@ export class MoviesListComponent implements AfterViewInit, OnInit {
 
   onPageChange(pageNum: number | undefined) {
     if (pageNum) {
-      console.log('PAGENUM COMPONENTE', pageNum);
       this.router.navigate(['/movies'], {
-        queryParams: { pageNum: pageNum },
+        queryParams: { pageNum: this.pageNum, searchValue: this.searchValue },
       });
-      this.moviesFacade.searchMovie(pageNum);
+      console.log('PAGENUM COMPONENTE', pageNum);
+      if (this.searchValue && this.searchValue !== '') {
+        this.moviesFacade.searchMovie(pageNum, this.searchValue);
+      }
     }
   }
 }
