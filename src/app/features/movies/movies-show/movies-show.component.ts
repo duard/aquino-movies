@@ -43,7 +43,6 @@ export class MoviesShowComponent {
   }
   ngOnInit() {
     this.setRatings();
-    console.log('TEMOS ID', this.id);
 
     if (this.id) {
       this.moviesFacade.loadMovie(this.id!);
@@ -98,8 +97,7 @@ export class MoviesShowComponent {
     // https://medium.com/angular-in-depth/refresh-current-route-in-angular-512a19d58f6e
     // this.onDestroy.next();
     // this.onDestroy.complete();
-    console.log('destruido');
-
+    // console.log('destruido');
     // this.subscription.unsubscribe();
   }
 }

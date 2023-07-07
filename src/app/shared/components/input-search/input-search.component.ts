@@ -1,4 +1,11 @@
-import { Component, Input, ViewEncapsulation, inject } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  Input,
+  ViewChild,
+  ViewEncapsulation,
+  inject,
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
   ReactiveFormsModule,
@@ -34,6 +41,9 @@ export class InputSearchComponent {
 
   submitted = false;
 
+  @ViewChild('fieldToSearch', { static: false })
+  fieldToSearch: ElementRef<HTMLInputElement> = {} as ElementRef;
+
   constructor(
     private router: Router,
     private activatedRoute: ActivatedRoute,
@@ -44,10 +54,8 @@ export class InputSearchComponent {
     this.form = this.formBuilder.group({
       searchField: ['', Validators.required],
     });
-    console.log('SEARCH COMPONENTE', this.searchValue);
 
     this.activatedRoute.queryParams.subscribe((params) => {
-      console.log('QUERY PARAMAS', params);
       this.pageNum = params['pageNum'];
       this.searchValue = params['searchValue'];
       if (this.searchValue) {
@@ -74,25 +82,15 @@ export class InputSearchComponent {
       queryParams: { searchValue: searchValue, pageNum: 1 },
     });
 
-    console.log('form busca', searchValue, 'pageNum', 1);
     this.moviesFacade.searchMovie(1, this.form.value.searchField);
   }
 
-  onReset(): void {
-    console.log('try to reset');
-
+  onReset(formData: any, formDirective: FormGroupDirective): void {
     this.submitted = false;
-    this.form.updateValueAndValidity();
-    this.form.reset();
-
-    this.form.reset();
-    // this.form.controls.searchField.setErrors(null);
-  }
-
-  submitForm(formData: any, formDirective: FormGroupDirective): void {
     this.form.updateValueAndValidity();
     formDirective.resetForm();
     this.form.reset();
+    this.fieldToSearch.nativeElement.focus();
   }
 
   ngOnDestroy() {
@@ -101,8 +99,7 @@ export class InputSearchComponent {
     // https://medium.com/angular-in-depth/refresh-current-route-in-angular-512a19d58f6e
     // this.onDestroy.next();
     // this.onDestroy.complete();
-    console.log('destruido');
-
+    // console.log('destruido');
     // this.subscription.unsubscribe();
   }
 }

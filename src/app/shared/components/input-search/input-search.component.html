@@ -6,10 +6,11 @@
 
         <input type="text" formControlName="searchField" class="form-control rounded" placeholder="Search"
           aria-label="Search" aria-describedby="search-addon" required="true" [disabled]="(isLoading$ | async)!"
-          [ngClass]="{ 'is-invalid': submitted && f['searchField'].errors }" />
+          [ngClass]="{ 'is-invalid': submitted && f['searchField'].errors }" focus="true" autofocus #fieldToSearch />
 
         <button type="submit" class="btn btn-primary btn-lg" [disabled]="(isLoading$ | async)!"> Search </button>
-        <button type="button" (click)="submitForm(form, formDirective)" class="btn btn-secondary btn-lg" [disabled]="(isLoading$ | async)!"> Reset </button>
+        <button type="button" (click)="onReset(form, formDirective)" class="btn btn-secondary btn-lg"
+          [disabled]="(isLoading$ | async)!"> Reset </button>
 
 
       </div>

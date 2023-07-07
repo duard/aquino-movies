@@ -21,8 +21,6 @@ export class MoviesComponent {
   constructor(private router: Router) {}
 
   ngOnInit() {
-    console.log('MOVIES COMPONENTE', this.searchValue);
-
     this.router.navigate(['/movies'], {
       queryParams: { pageNum: this.pageNum, searchValue: this.searchValue },
     });
@@ -37,8 +35,7 @@ export class MoviesComponent {
     // https://medium.com/angular-in-depth/refresh-current-route-in-angular-512a19d58f6e
     // this.onDestroy.next();
     // this.onDestroy.complete();
-    console.log('destruido');
-
+    // console.log('destruido');
     // this.subscription.unsubscribe();
   }
 }
