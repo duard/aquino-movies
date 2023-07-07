@@ -17,6 +17,9 @@ Pequeno front-end para listagens de filmes da api [OMDB](https://www.omdbapi.com
 - [x] Responsividade
 - [x] Usabilidade via mouse / teclado
 
+[preview.webm](https://github.com/duard/aquino-movies/assets/36894/80b28fd0-b50e-44c4-842c-cd9c04a5c0f1)
+
+
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.1.3.
 
 ## Development server
