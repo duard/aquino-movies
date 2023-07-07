@@ -43,6 +43,11 @@ export class MoviesShowComponent {
   }
   ngOnInit() {
     this.setRatings();
+    console.log('TEMOS ID', this.id);
+
+    if (this.id) {
+      this.moviesFacade.loadMovie(this.id!);
+    }
   }
 
   // metodo precisa ser melhorado
@@ -80,6 +85,7 @@ export class MoviesShowComponent {
 
         this.ratings.push(workedRating);
       });
+      console.log(this.ratings);
     });
   }
 
@@ -88,11 +94,12 @@ export class MoviesShowComponent {
   }
   ngOnDestroy() {
     // implementar o destroy
-    //
+    // problema de child routes como ilustrado aqui
+    // https://medium.com/angular-in-depth/refresh-current-route-in-angular-512a19d58f6e
     // this.onDestroy.next();
     // this.onDestroy.complete();
     console.log('destruido');
 
-    this.subscription.unsubscribe();
+    // this.subscription.unsubscribe();
   }
 }

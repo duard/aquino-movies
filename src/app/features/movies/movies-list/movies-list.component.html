@@ -6,17 +6,6 @@
     </ngb-pagination>
   </div>
 
-  <pre>Current page: {{ pageNum }}</pre>
-
-  <pre>rows : {{ (rows$ | async) || 0 }}</pre>
-  <pre>page : {{ (page$ | async) || 0 }}</pre>
-  <pre>pageSize : {{ (pageSize$ | async) || 0 }}</pre>
-
-  <pre>isLoading : {{ (isLoading$ | async) || false }}</pre>
-  <pre>error : {{ (error$ | async) || "" }}</pre>
-
-  <pre>selectedMovie : {{ (selectedMovie$ | async)?.Title || null }}</pre>
-
   <div *ngFor=" let movie of movieItems">
 
     <div class="row m-2">
@@ -33,9 +22,12 @@
     </div>
     <hr />
   </div>
-</div>
 
-<div class="row" *ngIf="movieItems$ | async as movieItems">
-  <ng-container *ngIf="movieItems.length > 0">DADOS</ng-container>
-  <ng-container *ngIf="movieItems.length <= 0">SEM DADOS</ng-container>
+
+  <div *ngIf="movieItems.length > 0" class="col-12 justify-content-center">
+    <ngb-pagination [collectionSize]="(rows$ | async) || 0" [disabled]="(isLoading$ | async)!" [(page)]="pageNum!"
+      [maxSize]="5" [rotate]="true" [boundaryLinks]="true" size="sm" (pageChange)="onPageChange(pageNum)">
+    </ngb-pagination>
+  </div>
+
 </div>

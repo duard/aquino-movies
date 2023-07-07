@@ -1,7 +1,7 @@
 <div class="container">
   <div class="row align-items-center">
 
-    <form [formGroup]="form" (ngSubmit)="onSubmit()" class="mb-3">
+    <form [formGroup]="form" #formDirective="ngForm" (ngSubmit)="onSubmit()" class="mb-3">
       <div class="input-group">
 
         <input type="text" formControlName="searchField" class="form-control rounded" placeholder="Search"
@@ -9,7 +9,7 @@
           [ngClass]="{ 'is-invalid': submitted && f['searchField'].errors }" />
 
         <button type="submit" class="btn btn-primary btn-lg" [disabled]="(isLoading$ | async)!"> Search </button>
-        <button type="button" class="btn btn-secondary btn-lg" [disabled]="(isLoading$ | async)!"> Reset </button>
+        <button type="button" (click)="submitForm(form, formDirective)" class="btn btn-secondary btn-lg" [disabled]="(isLoading$ | async)!"> Reset </button>
 
 
       </div>

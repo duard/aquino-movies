@@ -49,9 +49,26 @@ export class MoviesListComponent implements AfterViewInit, OnInit {
       this.router.navigate(['/movies'], {
         queryParams: { pageNum: this.pageNum, searchValue: this.searchValue },
       });
+      console.log(
+        'LIST',
+        pageNum,
+        this.searchValue,
+        this.searchValue && this.searchValue !== ''
+      );
+
       if (this.searchValue && this.searchValue !== '') {
         this.moviesFacade.searchMovie(pageNum, this.searchValue);
       }
     }
+  }
+  ngOnDestroy() {
+    // implementar o destroy
+    // problema de child routes como ilustrado aqui
+    // https://medium.com/angular-in-depth/refresh-current-route-in-angular-512a19d58f6e
+    // this.onDestroy.next();
+    // this.onDestroy.complete();
+    console.log('destruido');
+
+    // this.subscription.unsubscribe();
   }
 }
