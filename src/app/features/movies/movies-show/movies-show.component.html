@@ -1,35 +1,40 @@
-<ng-template #loading>
-  <p>Loading...</p>
-</ng-template>
-
-<ng-container *ngIf="(selectedMovie$ | async)  as movie ; else loading">
-  <div *appShowMovie="id ===  ((selectedMovie$ | async)?.imdbID || '')" class="container">
-    <div class="row">
-      <div class="col-md-8">
-        <h1 class="mt-3">{{movie.Title}}</h1>
-        <p><strong>Plot:</strong> {{movie.Plot}}</p>
-        <p><strong>Actors:</strong> {{movie.Actors}}</p>
-        <div *ngFor="let rating of ratings ; trackBy: trackByMethod">
-          <div>
-            <strong> {{rating.source}} :</strong>
+<div *ngIf="(error$ | async)">
+  Error! {{ error$ | async}}
+</div>
+<div *ngIf="(isLoading$ | async)">
+  Loading...
+</div>
+<!-- <pre>{{isLoading$ | async}}</pre> -->
+<ng-container *ngIf="selectedMovie$  | async as movie">
+  <div *ngIf="(selectedMovie$ | async)">
+    <div *appShowMovie="id ===  ((selectedMovie$ | async)?.imdbID || '')" class="container">
+      <div class="row">
+        <div class="col-md-8">
+          <h1 class="mt-3">{{movie.Title}}</h1>
+          <p><strong>Plot:</strong> {{movie.Plot}}</p>
+          <p><strong>Actors:</strong> {{movie.Actors}}</p>
+          <div *ngFor="let rating of ratings ; trackBy: trackByMethod">
+            <div>
+              <strong> {{rating.source}} :</strong>
+            </div>
+            <ngb-rating [(rate)]="rating.value" [max]="rating.maxValue" [readonly]="true"></ngb-rating>
           </div>
-          <ngb-rating [(rate)]="rating.value" [max]="rating.maxValue" [readonly]="true"></ngb-rating>
-        </div>
-        <div class="my-4">
-          <button type="button" class="btn btn-primary">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-              class="bi bi-hand-thumbs-up" viewBox="0 0 16 16">
+          <div class="my-4">
+            <button type="button" class="btn btn-primary">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                class="bi bi-hand-thumbs-up" viewBox="0 0 16 16">
 
-            </svg>
-            Like
-          </button>
+              </svg>
+              Like
+            </button>
+          </div>
         </div>
-      </div>
-      <div class="col-md-4 d-flex flex-column justify-content-center align-items-center">
-        <div class="my-4">
-          <img [src]="movie.Poster" alt="Movie Poster" class="img-fluid">
-        </div>
+        <div class="col-md-4 d-flex flex-column justify-content-center align-items-center">
+          <div class="my-4">
+            <img [src]="movie.Poster" alt="Movie Poster" class="img-fluid">
+          </div>
 
+        </div>
       </div>
     </div>
   </div>

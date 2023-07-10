@@ -32,10 +32,23 @@ export const moviesReducer = createReducer(
 
     return resultMutation;
   }),
+
+  on(MoviesActions.loadMovieByIdFetch, (state, action) => {
+    const resultMutation = {
+      ...state,
+      error: '',
+      isLoading: true,
+    };
+
+    return resultMutation;
+  }),
+
   on(MoviesActions.loadMovieByIdSuccess, (state: MoviesState, { movie }) => {
     const resultMutation = {
       ...state,
       selectedMovie: movie,
+      error: '',
+      isLoading: false,
     };
     return resultMutation;
   })
