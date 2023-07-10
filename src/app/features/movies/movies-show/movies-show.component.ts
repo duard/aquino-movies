@@ -1,7 +1,15 @@
 import { Component, Input, ViewEncapsulation, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MovieDetail, MoviesFacade, Rating, WorkedRating } from '@store/movies';
-import { Observable, Subscription, filter, map, of } from 'rxjs';
+import {
+  Observable,
+  Subject,
+  Subscription,
+  filter,
+  map,
+  of,
+  takeUntil,
+} from 'rxjs';
 import { ShowMovieDirective } from '@shared/directives/show-movie.directive';
 import { UnlessDirective } from '@shared/directives/unless.directive';
 import { NgbRating, NgbRatingConfig } from '@ng-bootstrap/ng-bootstrap';
@@ -23,7 +31,8 @@ import { SplitStringPipe } from '@shared/pipes/split-string.pipe';
 })
 export class MoviesShowComponent {
   @Input() id?: string;
-  subscription: Subscription = new Subscription();
+  // subscription: Subscription = new Subscription();
+  private destroy$ = new Subject<void>();
 
   condition = false;
   maxValue = 10;
@@ -94,7 +103,8 @@ export class MoviesShowComponent {
           });
 
           return ratings;
-        })
+        }),
+        takeUntil(this.destroy$)
       )
       .subscribe((result: WorkedRating[]) => {
         this.ratings = result;
@@ -106,5 +116,7 @@ export class MoviesShowComponent {
   }
   ngOnDestroy() {
     console.log('destruido');
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 }
