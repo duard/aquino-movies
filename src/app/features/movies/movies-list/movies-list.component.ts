@@ -11,7 +11,7 @@ import { MovieDetail, MoviesFacade, SearchMovies } from '@store/movies';
 import { Observable, of } from 'rxjs';
 import { NgOptimizedImage } from '@angular/common';
 import { NgbPagination } from '@ng-bootstrap/ng-bootstrap';
-import { Router, RouterModule } from '@angular/router';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-movies-list',
@@ -38,9 +38,29 @@ export class MoviesListComponent implements AfterViewInit, OnInit {
   page$: Observable<number> = this.moviesFacade.page$;
   rows$: Observable<number> = this.moviesFacade.rows$;
 
-  constructor(private router: Router) {}
+  constructor(
+    private router: Router,
+    private activatedRouote: ActivatedRoute // private location: Location
+  ) {
+    console.log('LIST CONSTRUCTOR', this.pageNum, this.searchValue);
+  }
 
-  ngOnInit() {}
+  ngOnInit() {
+    console.log('LIST ngOnInit', this.pageNum, this.searchValue);
+    if (this.searchValue && this.searchValue !== '') {
+      this.moviesFacade.searchMovie(this.pageNum, this.searchValue);
+      this.router.navigate(
+        [
+          '/movies',
+          {
+            pageNum: this.pageNum,
+            searchValue: this.searchValue,
+          },
+        ],
+        { relativeTo: this.activatedRouote }
+      );
+    }
+  }
 
   ngAfterViewInit() {}
 

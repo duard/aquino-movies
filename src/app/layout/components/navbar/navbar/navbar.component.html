@@ -5,12 +5,14 @@
   </li>
   <li class="nav-item px-2">
     <a class="nav-link px-2 " tabindex="6" routerLink="/movies" routerLinkActive="nav-link active"
-      ariaCurrentWhenActive="page">Movies</a>
+      ariaCurrentWhenActive="page" [queryParams]="{ pageNum, searchValue }">Movies</a>
   </li>
   <li class="nav-item px-2">
     <a class="nav-link px-2 " tabindex="6" routerLink="/about" routerLinkActive="nav-link active"
       ariaCurrentWhenActive="page">About</a>
   </li>
+  <a [routerLink]="['/movies']"
+   [queryParams]="{ pageNum, searchValue }"> Pandas </a>
 </ul>
 <!-- <div class="container-fluid">
   <ul class="nav col-12 col-lg-auto me-xs -auto mb-2 justify-content-center mb-md-0">

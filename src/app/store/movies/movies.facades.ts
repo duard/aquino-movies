@@ -19,6 +19,7 @@ export class MoviesFacade {
   public pageSize$ = this.store.select(fromMoviesSearch.selectPageSize);
   public page$ = this.store.select(fromMoviesSearch.selectPage);
   public rows$ = this.store.select(fromMoviesSearch.selectRows);
+  public searchValue$ = this.store.select(fromMoviesSearch.selectSearchValue);
 
   constructor(private store: Store<MoviesState>) {}
 

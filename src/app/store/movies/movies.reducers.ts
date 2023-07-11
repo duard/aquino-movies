@@ -30,6 +30,8 @@ export const moviesReducer = createReducer(
       rows: Number(result.totalResults),
     };
 
+    console.log('RESULT SUCESS ALL', resultMutation);
+
     return resultMutation;
   }),
 
