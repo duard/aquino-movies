@@ -15,8 +15,8 @@ import { Observable } from 'rxjs';
   encapsulation: ViewEncapsulation.Emulated,
 })
 export class NavbarComponent {
-  @Input() pageNum: number = 1;
-  @Input() searchValue: string = '';
+  // @Input() pageNum: number = 1;
+  // @Input() searchValue: string = '';
   private readonly moviesFacade: MoviesFacade = inject(MoviesFacade);
   page$ = this.moviesFacade.page$;
   searchValue$ = this.moviesFacade.searchValue$;
@@ -25,14 +25,14 @@ export class NavbarComponent {
   constructor(private route: ActivatedRoute) {}
 
   ngOnInit(): void {
-    this.sub = this.route.queryParamMap.subscribe((queryParams) => {
-      this.pageNum = Number(queryParams.get('pageNum'));
-      this.searchValue = queryParams.get('searchValue')!;
-    });
-    console.log('NavbarComponent', this.pageNum, this.searchValue);
+    // this.sub = this.route.queryParamMap.subscribe((queryParams) => {
+    //   this.pageNum = Number(queryParams.get('pageNum'));
+    //   this.searchValue = queryParams.get('searchValue')!;
+    // });
+    // console.log('NavbarComponent', this.pageNum, this.searchValue);
   }
 
   ngOnDestroy() {
-    this.sub.unsubscribe();
+    // this.sub.unsubscribe();
   }
 }

@@ -13,7 +13,7 @@
         <img src="{{ movie['Poster'] }}" class="img-fluid" alt="{{ movie['Title'] }}">
       </div>
       <div class="col-8 col-xs-8 col-sm-8 col-md-8 col-lg-8 col-xl-8 col-xxl-8">
-        <a role="button" tabindex="0" aria-disabled="false" routerLink="/movies/{{movie.imdbID}}">
+        <a role="button" tabindex="0" aria-disabled="false" queryParamsHandling="preserve" routerLink="/movies/{{movie.imdbID}}">
           <h2 class="link-dark text-uppercase">{{ movie["Title"] }}</h2>
         </a>
         <span class="badge bg-secondary">{{ movie["Year"] }}</span>

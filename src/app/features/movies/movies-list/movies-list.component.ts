@@ -49,16 +49,16 @@ export class MoviesListComponent implements AfterViewInit, OnInit {
     console.log('LIST ngOnInit', this.pageNum, this.searchValue);
     if (this.searchValue && this.searchValue !== '') {
       this.moviesFacade.searchMovie(this.pageNum, this.searchValue);
-      this.router.navigate(
-        [
-          '/movies',
-          {
-            pageNum: this.pageNum,
-            searchValue: this.searchValue,
-          },
-        ],
-        { relativeTo: this.activatedRouote }
-      );
+      // this.router.navigate(
+      //   [
+      //     '/movies',
+      //     {
+      //       pageNum: this.pageNum,
+      //       searchValue: this.searchValue,
+      //     },
+      //   ],
+      //   { relativeTo: this.activatedRouote }
+      // );
     }
   }
 
