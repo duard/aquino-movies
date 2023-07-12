@@ -14,6 +14,7 @@ export const MoviesActions = createActionGroup({
     'Load Movie By Id Fetch': props<{
       imdbID: string;
     }>(),
+    'Load Movie By Id Transform': props<{ movie: MovieDetail }>(),
     'Load Movie By Id Success': props<{ movie: MovieDetail }>(),
     'Load Movie By Id Failure': props<{ error: string }>(),
   },

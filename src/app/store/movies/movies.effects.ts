@@ -38,17 +38,30 @@ export class MovieEffects {
         ofType(MoviesActions.loadMovieByIdFetch),
         mergeMap(({ imdbID }) =>
           this.movieService.getMovieById(imdbID).pipe(
-            tap((data) => {
-              // console.log('oneMovie', data);
-            }),
+            // tap((data) => {
+            //   MoviesActions.loadMovieByIdTransform({ movie: data });
+            // }),
             map((result) =>
-              MoviesActions.loadMovieByIdSuccess({
+              MoviesActions.loadMovieByIdTransform({
                 movie: result,
               })
             ),
+
             catchError((error) => [MoviesActions.loadMovieByIdFailure(error)])
           )
         )
+      ),
+    { dispatch: true }
+  );
+
+  movieTransformation$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(MoviesActions.loadMovieByIdTransform),
+        tap((action) =>
+          console.log('Following Action was dispatched:', action)
+        ),
+        catchError((error) => [MoviesActions.loadMovieByIdFailure(error)])
       ),
     { dispatch: true }
   );
