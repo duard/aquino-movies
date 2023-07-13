@@ -42,7 +42,6 @@ export class MoviesComponent {
   ngOnInit() {
     const pageNum = this.route.snapshot.queryParamMap.get('pageNum');
     const searchValue = this.route.snapshot.queryParamMap.get('searchValue');
-    console.log('MOVIES PAGE ', this.pageNum, this.searchValue);
 
     // this.router.navigate(['/movies'], {
     //   queryParams: { pageNum: this.pageNum, searchValue: this.searchValue },
@@ -52,8 +51,6 @@ export class MoviesComponent {
     // }
 
     if (this.searchValue && this.searchValue !== '') {
-      console.log('LISTING ON MOVIE...');
-
       this.moviesFacade.searchMovie(this.pageNum, this.searchValue);
     }
   }

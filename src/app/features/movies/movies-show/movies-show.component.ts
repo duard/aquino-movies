@@ -13,7 +13,7 @@ import {
 import { ShowMovieDirective } from '@shared/directives/show-movie.directive';
 import { UnlessDirective } from '@shared/directives/unless.directive';
 import { NgbRating, NgbRatingConfig } from '@ng-bootstrap/ng-bootstrap';
-import { SplitStringPipe } from '@shared/pipes/split-string.pipe';
+import { LongDatePipe } from '@shared/pipes';
 
 @Component({
   selector: 'app-movies-show',
@@ -23,7 +23,7 @@ import { SplitStringPipe } from '@shared/pipes/split-string.pipe';
     ShowMovieDirective,
     UnlessDirective,
     NgbRating,
-    SplitStringPipe,
+    LongDatePipe,
   ],
   templateUrl: './movies-show.component.html',
   styleUrls: ['./movies-show.component.scss'],
