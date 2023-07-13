@@ -4,15 +4,15 @@
 <div *ngIf="(isLoading$ | async)">
   Loading...
 </div>
-
+<div class="col-12 justify-content-center">
+  <ngb-pagination [collectionSize]="(rows$ | async) || 0" [disabled]="(isLoading$ | async)!" [(page)]="pageNum!"
+    [maxSize]="5" [rotate]="true" [boundaryLinks]="true" size="sm" (pageChange)="onPageChange(pageNum)">
+  </ngb-pagination>
+</div>
 <div class="container" *ngIf="!(isLoading$ | async) as loading">
   <ng-container *ngIf="movieItems$ | async as movieItems">
     <pre>{{ready}}</pre>
-    <div *ngIf="movieItems.length > 0" class="col-12 justify-content-center">
-      <ngb-pagination [collectionSize]="(rows$ | async) || 0" [disabled]="(isLoading$ | async)!" [(page)]="pageNum!"
-        [maxSize]="5" [rotate]="true" [boundaryLinks]="true" size="sm" (pageChange)="onPageChange(pageNum)">
-      </ngb-pagination>
-    </div>
+
 
     <div *ngFor=" let movie of movieItems">
 

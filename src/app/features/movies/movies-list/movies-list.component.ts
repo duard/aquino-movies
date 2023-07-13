@@ -8,7 +8,7 @@ import {
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MovieDetail, MoviesFacade, SearchMovies } from '@store/movies';
-import { Observable, Subscription, of } from 'rxjs';
+import { Observable, Subject, Subscription, of, takeUntil } from 'rxjs';
 import { NgOptimizedImage } from '@angular/common';
 import { NgbPagination } from '@ng-bootstrap/ng-bootstrap';
 import {
@@ -37,6 +37,7 @@ export class MoviesListComponent implements OnInit {
 
   @Input() pageNum: number = 1;
   @Input() searchValue: string = '';
+  private destroy$ = new Subject<void>();
 
   private moviesFacade: MoviesFacade = inject(MoviesFacade);
   private subscriptions: Subscription = new Subscription();
@@ -52,29 +53,37 @@ export class MoviesListComponent implements OnInit {
   page$: Observable<number> = this.moviesFacade.page$;
   rows$: Observable<number> = this.moviesFacade.rows$;
 
+  private isLoading = false;
   constructor(
     private router: Router,
     private activatedRouote: ActivatedRoute // private location: Location
   ) {
     console.log('--- constructor ---', this.pageNum, this.searchValue);
-    this.router.events.subscribe((event: any) => {
-      this.routerEvents.push(event.constructor.name);
-      // console.log('event', event.constructor.name);
-      this.routerEvent = event.constructor.name;
-      if (event instanceof NavigationStart) {
-        this.ready = false;
-        console.log('START', this.ready);
-      }
-      if (
-        event instanceof NavigationEnd ||
-        event instanceof RouteConfigLoadEnd ||
-        // event instanceof RouteConfigLoadEnd ||
-        event instanceof ActivationEnd
-      ) {
-        this.ready = true;
-        console.log('FINISH ', this.ready);
-      }
-    });
+    this.subscriptions = this.isLoading$
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((data) => {
+        this.isLoading = data;
+      });
+    this.subscriptions = this.router.events
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((event: any) => {
+        this.routerEvents.push(event.constructor.name);
+        // console.log('event', event.constructor.name);
+        this.routerEvent = event.constructor.name;
+        if (event instanceof NavigationStart) {
+          this.ready = false;
+          // console.log('START', this.ready);
+        }
+        if (
+          event instanceof NavigationEnd ||
+          event instanceof RouteConfigLoadEnd ||
+          // event instanceof RouteConfigLoadEnd ||
+          event instanceof ActivationEnd
+        ) {
+          this.ready = true;
+          // console.log('FINISH ', this.ready);
+        }
+      });
   }
 
   ngOnInit() {
@@ -84,25 +93,34 @@ export class MoviesListComponent implements OnInit {
   ngAfterViewInit() {}
 
   onPageChange(pageNum: number | undefined) {
-    if (
-      pageNum &&
-      this.ready &&
-      this.routerEvent !== 'NavigationStart' &&
-      this.routerEvent !== 'Scroll'
-    ) {
-      if (this.searchValue && this.searchValue !== '') {
-        console.log('BUCANDO NO PAGINATOR', this.routerEvent, this.ready);
-        this.router.navigate(['/movies'], {
-          queryParams: { pageNum: this.pageNum, searchValue: this.searchValue },
-        });
+    // console.log('Navegando para pagina', pageNum, this.pageNum);
 
-        this.moviesFacade.searchMovie(pageNum, this.searchValue);
-      }
+    // if (
+    //   this.routerEvent === 'NavigationStart' ||
+    //   this.routerEvent === 'RouteConfigLoadEnd'
+    // ) {
+    //   console.log('Cant page now', this.routerEvent);
+    //   return;
+    // }
+    // if (pageNum === this.pageNum) {
+    //   console.log('same page', pageNum === this.pageNum, pageNum, this.pageNum);
+    //   return;
+    // }
+
+    if (this.searchValue && this.searchValue !== '' && !this.isLoading) {
+      // console.log('BUCANDO NO PAGINATOR', this.routerEvent);
+      this.router.navigate(['/movies'], {
+        queryParams: { pageNum: this.pageNum, searchValue: this.searchValue },
+      });
+      this.moviesFacade.searchMovie(this.pageNum, this.searchValue);
     }
   }
 
   ngOnDestroy() {
     console.log('---Inside ngOnDestroy---');
-    this.subscriptions.unsubscribe();
+    // this.subscriptions.unsubscribe();
+    console.log('destruido');
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 }
