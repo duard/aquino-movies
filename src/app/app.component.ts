@@ -4,6 +4,7 @@ import { RouterOutlet } from '@angular/router';
 import { ContainerLayoutComponent } from './layout/container-layout/container-layout.component';
 import { NavbarComponent } from './layout/components/navbar/navbar/navbar.component';
 import { HeaderComponent } from './layout/components/header/header.component';
+import packageJson from '../../package.json';
 
 @Component({
   selector: 'app-root',
@@ -18,4 +19,8 @@ import { HeaderComponent } from './layout/components/header/header.component';
     HeaderComponent,
   ],
 })
-export class AppComponent {}
+export class AppComponent {
+  appName: any = packageJson.displayName;
+
+  title = 'Aquino Movies';
+}

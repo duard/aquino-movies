@@ -1,7 +1,8 @@
-import { MovieDetail, SearchMovies } from './movie';
+import { MovieDetail, SearchMovies, WorkedRating } from './movie';
 
 export interface MoviesState {
   selectedMovie: MovieDetail | undefined;
+  selectedMovieRatings: WorkedRating[] | undefined;
   movieItems: SearchMovies[];
   isLoading: boolean;
   searchValue: string | undefined;
@@ -13,6 +14,7 @@ export interface MoviesState {
 
 export const initialState: MoviesState = {
   selectedMovie: undefined,
+  selectedMovieRatings: undefined,
   movieItems: [],
   isLoading: false,
   searchValue: '',

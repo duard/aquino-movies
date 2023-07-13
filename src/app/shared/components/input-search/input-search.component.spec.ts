@@ -1,6 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { InputSearchComponent } from './input-search.component';
+import { RouterTestingModule } from '@angular/router/testing';
+import { StoreModule } from '@ngrx/store';
 
 describe('InputSearchComponent', () => {
   let component: InputSearchComponent;
@@ -8,7 +10,11 @@ describe('InputSearchComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [InputSearchComponent]
+      imports: [
+        StoreModule.forRoot(),
+        RouterTestingModule,
+        InputSearchComponent,
+      ],
     });
     fixture = TestBed.createComponent(InputSearchComponent);
     component = fixture.componentInstance;

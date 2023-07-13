@@ -1,5 +1,5 @@
 import { createActionGroup, props } from '@ngrx/store';
-import { MovieDetail, SearchResult } from './movie';
+import { MovieDetail, SearchResult, WorkedRating } from './movie';
 
 export const MoviesActions = createActionGroup({
   source: 'Movies API',
@@ -15,7 +15,12 @@ export const MoviesActions = createActionGroup({
       imdbID: string;
     }>(),
     'Load Movie By Id Transform': props<{ movie: MovieDetail }>(),
-    'Load Movie By Id Success': props<{ movie: MovieDetail }>(),
+
+    'Load Movie By Id Success': props<{
+      movie: MovieDetail;
+      ratings: WorkedRating[];
+    }>(),
+
     'Load Movie By Id Failure': props<{ error: string }>(),
   },
 });

@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { NavbarComponent } from '../components/navbar/navbar/navbar.component';
 import { FooterComponent } from '../components/footer/footer.component';
 import { RouterOutlet } from '@angular/router';
+import packageJson from '../../../../package.json';
 
 @Component({
   selector: 'app-layout-two',
@@ -11,4 +12,8 @@ import { RouterOutlet } from '@angular/router';
   styleUrls: ['./layout-two.component.scss'],
   imports: [CommonModule, RouterOutlet, NavbarComponent, FooterComponent],
 })
-export class LayoutTwoComponent {}
+export class LayoutTwoComponent {
+  appName: any = packageJson.displayName;
+
+  title = 'Aquino Movies';
+}

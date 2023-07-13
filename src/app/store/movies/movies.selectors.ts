@@ -4,14 +4,18 @@ import { MoviesState } from './movies.state';
 export const featureKey = 'movies-search';
 export const selectFeature = createFeatureSelector<MoviesState>(featureKey);
 
-export const movieFeature = createFeatureSelector<MoviesState>('movies-search');
-
 export const selectSelectedMovie = createSelector(
   selectFeature,
   (state: MoviesState) => state.selectedMovie
 );
+
+export const selectSelectedMovieRatings = createSelector(
+  selectFeature,
+  (state: MoviesState) => state.selectedMovieRatings
+);
+
 export const selectMovieItems = createSelector(
-  movieFeature,
+  selectFeature,
   (state: MoviesState) => state.movieItems
 );
 

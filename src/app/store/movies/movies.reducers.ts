@@ -17,7 +17,6 @@ export const moviesReducer = createReducer(
 
     return resultMutation;
   }),
-
   on(MoviesActions.searchMoviesSuccess, (state: MoviesState, { result }) => {
     const resultMutation = {
       ...state,
@@ -30,14 +29,13 @@ export const moviesReducer = createReducer(
       rows: Number(result.totalResults),
     };
 
-    console.log('RESULT SUCESS ALL', resultMutation);
-
     return resultMutation;
   }),
-
   on(MoviesActions.loadMovieByIdFetch, (state, action) => {
     const resultMutation = {
       ...state,
+      selectedMovie: undefined,
+      selectedMovieRatings: undefined,
       error: '',
       isLoading: true,
     };
@@ -45,15 +43,13 @@ export const moviesReducer = createReducer(
     return resultMutation;
   }),
 
-  on(MoviesActions.loadMovieByIdSuccess, (state: MoviesState, { movie }) => {
-    const resultMutation = {
-      ...state,
-      selectedMovie: movie,
-      error: '',
-      isLoading: false,
-    };
-    return resultMutation;
-  })
+  on(MoviesActions.loadMovieByIdSuccess, (state, { movie, ratings }) => ({
+    ...state,
+    isLoading: false,
+
+    selectedMovie: movie,
+    selectedMovieRatings: ratings,
+  }))
 );
 
 export function moviesReducerState(state = initialState, action: Action) {

@@ -1,6 +1,10 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { MoviesComponent } from './movies.component';
+import { HttpClientModule } from '@angular/common/http';
+import { RouterTestingModule } from '@angular/router/testing';
+import { MoviesFacade } from '@store/movies';
+import { StoreModule } from '@ngrx/store';
 
 describe('MoviesComponent', () => {
   let component: MoviesComponent;
@@ -8,7 +12,13 @@ describe('MoviesComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [MoviesComponent]
+      imports: [
+        HttpClientModule,
+        RouterTestingModule,
+        MoviesComponent,
+        StoreModule.forRoot(),
+      ],
+      providers: [MoviesFacade],
     });
     fixture = TestBed.createComponent(MoviesComponent);
     component = fixture.componentInstance;

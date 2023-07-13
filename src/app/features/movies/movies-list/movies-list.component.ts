@@ -8,10 +8,19 @@ import {
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MovieDetail, MoviesFacade, SearchMovies } from '@store/movies';
-import { Observable, of } from 'rxjs';
+import { Observable, Subscription, of } from 'rxjs';
 import { NgOptimizedImage } from '@angular/common';
 import { NgbPagination } from '@ng-bootstrap/ng-bootstrap';
-import { ActivatedRoute, Router, RouterModule } from '@angular/router';
+import {
+  ActivatedRoute,
+  ActivationEnd,
+  ChildActivationEnd,
+  NavigationEnd,
+  NavigationStart,
+  RouteConfigLoadEnd,
+  Router,
+  RouterModule,
+} from '@angular/router';
 
 @Component({
   selector: 'app-movies-list',
@@ -21,11 +30,16 @@ import { ActivatedRoute, Router, RouterModule } from '@angular/router';
   styleUrls: ['./movies-list.component.scss'],
   encapsulation: ViewEncapsulation.None,
 })
-export class MoviesListComponent implements AfterViewInit, OnInit {
+export class MoviesListComponent implements OnInit {
+  ready = false;
+  routerEvent = '';
+  routerEvents: string[] = [];
+
   @Input() pageNum: number = 1;
   @Input() searchValue: string = '';
 
-  private readonly moviesFacade: MoviesFacade = inject(MoviesFacade);
+  private moviesFacade: MoviesFacade = inject(MoviesFacade);
+  private subscriptions: Subscription = new Subscription();
 
   selectedMovie$: Observable<MovieDetail | undefined> =
     this.moviesFacade.selectedMovie$;
@@ -42,46 +56,53 @@ export class MoviesListComponent implements AfterViewInit, OnInit {
     private router: Router,
     private activatedRouote: ActivatedRoute // private location: Location
   ) {
-    console.log('LIST CONSTRUCTOR', this.pageNum, this.searchValue);
+    console.log('--- constructor ---', this.pageNum, this.searchValue);
+    this.router.events.subscribe((event: any) => {
+      this.routerEvents.push(event.constructor.name);
+      // console.log('event', event.constructor.name);
+      this.routerEvent = event.constructor.name;
+      if (event instanceof NavigationStart) {
+        this.ready = false;
+        console.log('START', this.ready);
+      }
+      if (
+        event instanceof NavigationEnd ||
+        event instanceof RouteConfigLoadEnd ||
+        // event instanceof RouteConfigLoadEnd ||
+        event instanceof ActivationEnd
+      ) {
+        this.ready = true;
+        console.log('FINISH ', this.ready);
+      }
+    });
   }
 
   ngOnInit() {
-    console.log('LIST ngOnInit', this.pageNum, this.searchValue);
-    if (this.searchValue && this.searchValue !== '') {
-      this.moviesFacade.searchMovie(this.pageNum, this.searchValue);
-      // this.router.navigate(
-      //   [
-      //     '/movies',
-      //     {
-      //       pageNum: this.pageNum,
-      //       searchValue: this.searchValue,
-      //     },
-      //   ],
-      //   { relativeTo: this.activatedRouote }
-      // );
-    }
+    console.log('---Inside ngOnInit---');
   }
 
   ngAfterViewInit() {}
 
   onPageChange(pageNum: number | undefined) {
-    if (pageNum) {
-      this.router.navigate(['/movies'], {
-        queryParams: { pageNum: this.pageNum, searchValue: this.searchValue },
-      });
-
+    if (
+      pageNum &&
+      this.ready &&
+      this.routerEvent !== 'NavigationStart' &&
+      this.routerEvent !== 'Scroll'
+    ) {
       if (this.searchValue && this.searchValue !== '') {
+        console.log('BUCANDO NO PAGINATOR', this.routerEvent, this.ready);
+        this.router.navigate(['/movies'], {
+          queryParams: { pageNum: this.pageNum, searchValue: this.searchValue },
+        });
+
         this.moviesFacade.searchMovie(pageNum, this.searchValue);
       }
     }
   }
+
   ngOnDestroy() {
-    // implementar o destroy
-    // problema de child routes como ilustrado aqui
-    // https://medium.com/angular-in-depth/refresh-current-route-in-angular-512a19d58f6e
-    // this.onDestroy.next();
-    // this.onDestroy.complete();
-    // console.log('destruido');
-    // this.subscription.unsubscribe();
+    console.log('---Inside ngOnDestroy---');
+    this.subscriptions.unsubscribe();
   }
 }

@@ -14,6 +14,7 @@ export interface MovieDetail {
   Awards: string;
   Poster: string;
   Ratings: Rating[];
+  WorkedRatings: WorkedRating[];
   Metascore: string;
   imdbRating: string;
   imdbVotes: string;

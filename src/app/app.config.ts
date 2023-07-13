@@ -22,7 +22,6 @@ import {
   withJsonpSupport,
 } from '@angular/common/http';
 import { provideStoreDevtools } from '@ngrx/store-devtools';
-import { counterState } from '@store/global/app.state';
 import { provideEffects } from '@ngrx/effects';
 import { moviesReducer, MovieEffects } from '@store/movies';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
@@ -57,7 +56,6 @@ export const appConfig: ApplicationConfig = {
     // provideState('movie-search', moviesReducer),
     // provideEffects(MovieEffects),
     provideStore({}),
-    provideState(counterState),
     // provideState('movie-search', moviesReducer),
     // provideEffects(MovieEffects),
     provideStoreDevtools({

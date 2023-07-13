@@ -9,6 +9,7 @@ import {
 import { InputSearchComponent } from '../../shared/components/input-search/input-search.component';
 import { MoviesFacade, SearchMovies } from '@store/movies';
 import { Observable } from 'rxjs';
+import { NgbPagination } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-movies',
@@ -16,7 +17,13 @@ import { Observable } from 'rxjs';
   templateUrl: './movies.component.html',
   styleUrls: ['./movies.component.scss'],
   encapsulation: ViewEncapsulation.None,
-  imports: [CommonModule, RouterOutlet, RouterModule, InputSearchComponent],
+  imports: [
+    CommonModule,
+    RouterOutlet,
+    RouterModule,
+    InputSearchComponent,
+    NgbPagination,
+  ],
 })
 export class MoviesComponent {
   @Input() pageNum: number = 1;
@@ -43,6 +50,12 @@ export class MoviesComponent {
     // if (this.pageNum && this.searchValue) {
     //   this.moviesFacade.searchMovie(this.pageNum, this.searchValue);
     // }
+
+    if (this.searchValue && this.searchValue !== '') {
+      console.log('LISTING ON MOVIE...');
+
+      this.moviesFacade.searchMovie(this.pageNum, this.searchValue);
+    }
   }
 
   ngOnDestroy() {

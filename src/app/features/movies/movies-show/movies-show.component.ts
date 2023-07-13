@@ -42,6 +42,8 @@ export class MoviesShowComponent {
 
   selectedMovie$: Observable<MovieDetail | undefined> =
     this.moviesFacade.selectedMovie$;
+  selectedMovieRatings$: Observable<WorkedRating[] | undefined> =
+    this.moviesFacade.selectedMovieRatings$;
   isLoading$: Observable<boolean> = this.moviesFacade.isLoading$;
   error$: Observable<string | undefined> = this.moviesFacade.error$;
   onDestroy: any;
@@ -51,7 +53,7 @@ export class MoviesShowComponent {
     config.readonly = true;
   }
   ngOnInit() {
-    this.setRatings();
+    // this.setRatings();
 
     if (this.id) {
       this.moviesFacade.loadMovie(this.id!);
@@ -86,11 +88,11 @@ export class MoviesShowComponent {
             }
 
             if (parsedValue > 10) {
-              parsedValue /= 10;
+              parsedValue = parsedValue / 10;
             }
 
             if (parsedMaxValue > 10) {
-              parsedMaxValue /= 10;
+              parsedMaxValue = parsedMaxValue / 10;
             }
 
             const workedRating: WorkedRating = {

@@ -13,6 +13,9 @@ export class MoviesFacade {
   public selectedMovie$ = this.store.select(
     fromMoviesSearch.selectSelectedMovie
   );
+  public selectedMovieRatings$ = this.store.select(
+    fromMoviesSearch.selectSelectedMovieRatings
+  );
   public movieItems$ = this.store.select(fromMoviesSearch.selectMovieItems);
   public isLoading$ = this.store.select(fromMoviesSearch.selectIsLoading);
   public error$ = this.store.select(fromMoviesSearch.selectError);
